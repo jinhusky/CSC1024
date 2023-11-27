@@ -1,4 +1,5 @@
-testing if it works or not 
-hi there
-test 2
-u there pls tst
+"""
+CSC1024 Programming Principles Final Assessment Project
+A Personal Book Management System using Python
+Date : 27 Nov 2023
+"""
