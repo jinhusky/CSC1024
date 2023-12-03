@@ -37,6 +37,9 @@ def main():
         elif int(option) == 6:
             prg_end = True
 
+        elif option == "":
+            continue
+        
         else:
             print("Invalid input please enter 1 to 6")
             continue
@@ -48,7 +51,7 @@ clear screen
 """
     
 def add_book(database):
-    
+
     ISBN = get_ISBN("\nEnter International Standard Book Number (13-digits): ")      
     author = get_author("\nEnter author name: ")
     title = input("\nEnter title of book: ")
@@ -56,10 +59,12 @@ def add_book(database):
     genre = get_alpha("\nEnter book's genre: ")
     year_published = get_year_published("\nEnter the year book was published: ")
     date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ")
+    book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
+                            , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, }
+    database.append(book)
 
     print(ISBN, author, title, publisher, genre, year_published, date_purchased)
 
-    
 def get_ISBN(prompt):
     while True:
         ISBN = input(prompt)
@@ -102,21 +107,7 @@ def get_year_published(prompt):
         return number
 
 def get_date_purchased(prompt):
-    while True:
-        try:
-            number = int(input(prompt))
-            if (number > 2023 or number < 1):
-                continue
-            
-        except ValueError:
-            print("Invalid input, please enter a valid number!")
-            continue
-    
-        return number
-
-    
-    
-
+    ...
 
 
 def show_menu():
