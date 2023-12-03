@@ -1,4 +1,3 @@
-ISBN, author, title, publisher, genre, year_published, date_purchased, status
 9781785785719,Yasha Levine,Surveillance Valley,Icon Books, Politics,2019,02-01-2020,read 
 9780241976630,John Maeda,How to Speak Machine,Portfolio UK,Artificial Intelligence,2019,02-01-2020,to-read 
 9781119055808,Andre De Vries,R For Dummies,John Wiley,Programming,2015,12-08-2016,read 
