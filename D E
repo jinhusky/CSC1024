@@ -1,0 +1,14 @@
+def search_book(data):
+    search_isbn = input("Enter International Standard Book Number (13-digits): (or press ENTER to skip) ")
+    search_author = input("Enter Author name: (or press ENTER to skip)")
+    search_title = input("Enter Title namw: (or press ENTER to skip)")
+
+    search_results = [book for book in data if
+                      (not search_isbn or book[0] == search_isbn) and
+                      (not search_author or book[1] == search_author) and
+                      (not search_title or book[2] == search_title)]
+
+    if search_results:
+        display_books(search_results)
+    else:
+        print("No matching books found.")
