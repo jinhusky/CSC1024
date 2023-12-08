@@ -44,6 +44,8 @@ def main():
             
             elif int(option) == 2:
                 ...
+            elif int(option) == 4:
+                display_books(database)
 
             elif int(option) == 6:
                 prg_end = True
@@ -152,7 +154,23 @@ def get_status(prompt):
                  
         else:
             print(colors.RED + "Invalid input. Please enter either \"read\" or \"to-read\"."+ colors.ENDC)
-    
+
+def display_books(database):
+    if not database:
+        print("No books in the system.")
+        return
+
+    headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
+
+    # Displaying headers
+    for header in headers:
+        print(f"{header:<20}", end="")
+    print("\n" + "=" * 145)
+
+    # Displaying book details
+    for book in database:
+        print(f"{book['ISBN']:<20}{book['author']:<20}{book['title']:<40}{book['publisher']:<20}"
+              f"{book['genre']:<20}{book['year_published']:<20}")
 
 
 def show_menu():
