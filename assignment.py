@@ -8,6 +8,13 @@ import random
 import os
 import datetime as datetime_s
 
+class colors:
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    ENDC = '\033[0m'
+    
 def main():
     # prints user interface menu
     database = []
@@ -46,7 +53,7 @@ def main():
             
         
         except ValueError:
-            print("Invalid input please enter 1 to 6")
+            print(colors.RED + "Invalid input please enter 1 to 6")
             continue
 
     print(database)
@@ -77,7 +84,7 @@ def add_book(database):
     genre = get_alpha("\nEnter book's genre: ")
     year_published = get_year_published("\nEnter the year book was published: ")
     date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ")
-    status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read')")
+    status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read'): ")
     book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
                             , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
     database.append(book)
@@ -90,7 +97,7 @@ def get_ISBN(prompt):
         if len(ISBN) == 3 and ISBN.isdigit():
             return str(ISBN)
         else:
-            print("Invalid input. Please enter a 13-digit number.")
+            print(colors.RED + "Invalid input. Please enter a 13-digit number."+ colors.ENDC)
 
 def get_author(prompt):
     while True:
@@ -100,7 +107,7 @@ def get_author(prompt):
             # Allow alphabets, spaces, and dots in the author name
             return str(author.title())
         else:
-            print("Invalid input. Please enter a valid author name.")
+            print(colors.RED + "Invalid input. Please enter a valid author name."+ colors.ENDC)
 
 def get_alpha(prompt):
      while True:
@@ -109,7 +116,7 @@ def get_alpha(prompt):
         if all(char.isalpha() or char.isspace() for char in author):
             return str(author.title())
         else:
-            print("Invalid input. Please enter a valid author name.")
+            print(colors.RED + "Invalid input. Please enter a valid author name."+ colors.ENDC)
 
 def get_year_published(prompt):
     while True:
@@ -119,7 +126,7 @@ def get_year_published(prompt):
                 continue
             
         except ValueError:
-            print("Invalid input, please enter a valid number!")
+            print(colors.RED + "Invalid input, please enter a valid number!"+ colors.ENDC)
             continue
     
         return str(number)
@@ -134,7 +141,7 @@ def get_date_purchased(prompt):
             return str(date_obj.strftime("%d-%m-%Y"))
         
         except ValueError:
-            print("Invalid input. Please enter the date in the format (dd-mm-yyyy): ")
+            print(colors.RED + "Invalid input. Please enter the date in the format (dd-mm-yyyy): "+ colors.ENDC)
 
 def get_status(prompt):
     while True:
@@ -144,12 +151,12 @@ def get_status(prompt):
             return str(status)
                  
         else:
-            print("Invalid input. Please enter either \"read\" or \"to-read\".")
+            print(colors.RED + "Invalid input. Please enter either \"read\" or \"to-read\"."+ colors.ENDC)
     
 
 
 def show_menu():
-    print(f"[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n")
+    print(f"{colors.BLUE}[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit{colors.ENDC}\n")
           
 
 if __name__ == "__main__":
