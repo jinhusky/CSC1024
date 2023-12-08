@@ -6,7 +6,7 @@ Date : 27 Nov 2023
 
 import random
 import os
-import datetime
+import datetime as datetime_s
 
 def main():
     # prints user interface menu
@@ -25,26 +25,40 @@ def main():
 
     #run program until user selects exit option
     while prg_end == False:
-    
-        option = input("Select option (1 to 6): ")
+        try:
+            option = input("\nSelect option (1 to 6): ")
 
-        if int(option) == 1:
-            add_book(database)
+            if int(option) == 1:
+                add_book(database)
+            
+            elif int(option) == 2:
+                ...
+
+            elif int(option) == 6:
+                prg_end = True
+
+            elif option == "":
+                continue
+            
         
-        elif int(option) == 2:
-            ...
-
-        elif int(option) == 6:
-            prg_end = True
-
-        elif option == "":
-            continue
-        
-        else:
+        except ValueError:
             print("Invalid input please enter 1 to 6")
             continue
 
     print(database)
+
+    with open("new_books.txt", "w") as new_file:
+        for book in database:
+            try:
+                book_info = ','.join([book['ISBN'], book['author'], book['title'], book['publisher'],
+                            book['genre'], book['year_published'], book['date_purchased'], book['status']])
+                
+            except TypeError:
+                pass
+
+            new_file.write(book_info + "\n")
+            
+
 """
 clear screen
     os.system(f"ipconfig /all") 
@@ -59,18 +73,18 @@ def add_book(database):
     genre = get_alpha("\nEnter book's genre: ")
     year_published = get_year_published("\nEnter the year book was published: ")
     date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ")
+    status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read')")
     book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
-                            , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, }
+                            , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
     database.append(book)
-
-    print(ISBN, author, title, publisher, genre, year_published, date_purchased)
+    print(database)
 
 def get_ISBN(prompt):
     while True:
         ISBN = input(prompt)
 
         if len(ISBN) == 3 and ISBN.isdigit():
-            return ISBN
+            return str(ISBN)
         else:
             print("Invalid input. Please enter a 13-digit number.")
 
@@ -80,7 +94,7 @@ def get_author(prompt):
 
         if all(char.isalpha() or char.isspace() or char == '.' for char in author):
             # Allow alphabets, spaces, and dots in the author name
-            return author.title()
+            return str(author.title())
         else:
             print("Invalid input. Please enter a valid author name.")
 
@@ -89,7 +103,7 @@ def get_alpha(prompt):
         author = input(prompt)
 
         if all(char.isalpha() or char.isspace() for char in author):
-            return author.title()
+            return str(author.title())
         else:
             print("Invalid input. Please enter a valid author name.")
 
@@ -104,10 +118,30 @@ def get_year_published(prompt):
             print("Invalid input, please enter a valid number!")
             continue
     
-        return number
+        return str(number)
 
 def get_date_purchased(prompt):
-    ...
+    while True:
+        try:
+            date_str = input(prompt)
+            #convert the input string into datetime object with dd-mm-yyyy format
+            date_obj = datetime_s.datetime.strptime(date_str, "%d-%m-%Y")
+
+            return str(date_obj.strftime("%d-%m-%Y"))
+        
+        except ValueError:
+            print("Invalid input. Please enter the date in the format (dd-mm-yyyy): ")
+
+def get_status(prompt):
+    while True:
+        status = input(prompt)
+
+        if status == "read" or status == "to-read":
+            return str(status)
+                 
+        else:
+            print("Invalid input. Please enter either \"read\" or \"to-read\".")
+    
 
 
 def show_menu():
