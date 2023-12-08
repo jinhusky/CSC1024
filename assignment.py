@@ -11,13 +11,17 @@ import datetime as datetime_s
 def main():
     # prints user interface menu
     database = []
-    with open("books.txt") as txtfile:
+    try:
+        with open("books.txt") as txtfile:
 
             for line in txtfile:
                 ISBN, author, title, publisher, genre, year_published, date_purchased, status = line.rstrip().split(",")
                 book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
                             , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
                 database.append(book)
+    except FileNotFoundError:
+        print("File not found. Create books.txt or check the file path.")
+
 
      
     prg_end = False 
