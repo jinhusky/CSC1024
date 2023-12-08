@@ -76,6 +76,8 @@ def main():
 clear screen
     os.system(f"ipconfig /all") 
 """
+def clearScreen():
+    return os.system("cls" if os.name == 'nt' else 'clear')
 #Cat was here
 def add_book(database):
 
