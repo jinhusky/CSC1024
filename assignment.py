@@ -20,14 +20,15 @@ def main():
     # prints user interface menu
     database = []
     index = 1
-    keys = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
+    keys = ["INDEX", "ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
+    
     try:
         with open("books.txt") as txtfile:
 
             for line in txtfile:
                 ISBN, author, title, publisher, genre, year_published, date_purchased, status = line.rstrip().split(",")
-                book = {"INDEX": index, "ISBN": ISBN, "author": author, "title": title, "publisher": publisher
-                            , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
+                book = {"INDEX": str(index), "ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
+                            , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
                 database.append(book)
                 index += 1
 
@@ -39,10 +40,11 @@ def main():
 
     #run program until user selects exit option
     while prg_end == False:
+        
+        clearScreen()
+        show_menu()
         try:
 
-            clearScreen()
-            show_menu()
             option = input("\nSelect option (1 to 6): ")
 
             if int(option) == 1:
@@ -71,8 +73,8 @@ def main():
     with open("new_books.txt", "w") as new_file:
         for book in database:
             try:
-                book_info = ','.join([book['ISBN'], book['author'], book['title'], book['publisher'],
-                            book['genre'], book['year_published'], book['date_purchased'], book['status']])
+                book_info = ','.join([book['ISBN'], book['Author'], book['Title'], book['Publisher'],
+                            book['Genre'], book['Year Published'], book['Date Purchased'], book['Status']])
                 
             except TypeError:
                 pass
@@ -92,10 +94,10 @@ def add_book(database):
     publisher = get_alpha("\nEnter publisher name: ")
     genre = get_alpha("\nEnter book's genre: ")
     year_published = get_year_published("\nEnter the year book was published: ")
-    date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ")
+    date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ", year_published)
     status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read'): ")
-    book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
-                            , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
+    book = {"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
+                            , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
     database.append(book)
     
 
@@ -109,8 +111,6 @@ def delete_book(database):
         database.remove(book)
     print("Book(s) deleted successfully.")
     input()
-
-
 
 def get_ISBN(prompt):
     while True:
@@ -155,13 +155,13 @@ def get_year_published(prompt):
     
         return str(year)
 
-def get_date_purchased(prompt):
+def get_date_purchased(prompt, year_published):
     while True:
         try:
             date_str = input(prompt)
             #convert the input string into datetime object with dd-mm-yyyy format
             date_obj = datetime_s.datetime.strptime(date_str, "%d-%m-%Y")
-            if date_obj > datetime_s.datetime.now():
+            if date_obj > datetime_s.datetime.now() or date_obj.year > int(year_published):
                 print(colors.RED + "Invalid input. Cant purchase books in the future (dd-mm-yyyy): "+ colors.ENDC)
                 continue
 
@@ -186,8 +186,25 @@ def get_status(prompt):
         print(f"{book['ISBN']:<20}{book['author']:<20}{book['title']:<40}{book['publisher']:<20}"
               f"{book['genre']:<20}{book['year_published']:<20}")
     """
+def display_books(database, keys):
+    width = [7, 15, 8, 7, 11, 7, 16, 16, 8]
+    for book in database: 
+        max = []
+        for key in keys:
+            if width[keys.index(key)] < len(book[key]):
+                width[keys.index(key)] = len(book[key])        
     
+ 
+    print(f"="*sum(width)+"")
 
+    index = 0
+    for i in keys:
+        print("{:^{w}}+".format(i, w=width[index]), end="")
+        index += 1
+
+    print(f"\n",width)
+    input()
+    
 
 def show_menu():
     print(f"{colors.BLUE}{colors.BOLD}[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit{colors.ENDC}\n")
