@@ -187,22 +187,33 @@ def get_status(prompt):
               f"{book['genre']:<20}{book['year_published']:<20}")
     """
 def display_books(database, keys):
-    width = [7, 15, 8, 7, 11, 7, 16, 16, 8]
+    width = [9, 17, 10, 9, 13, 9, 18, 18, 10]
     for book in database: 
-        max = []
         for key in keys:
             if width[keys.index(key)] < len(book[key]):
                 width[keys.index(key)] = len(book[key])        
     
- 
-    print(f"="*sum(width)+"")
+    print(f"="*(sum(width)+10)+"")
 
     index = 0
+    print("|", end="")
     for i in keys:
-        print("{:^{w}}+".format(i, w=width[index]), end="")
+        print("{:^{w}}|".format(i, w=width[index]), end="")
         index += 1
 
-    print(f"\n",width)
+    print()
+    print(f"="*(sum(width)+10)+"")
+
+    i = 0
+    for book in database: 
+        print("|", end="")
+        for i in range(len(keys)):
+            print("{:^{w}}|".format(book[keys[i]], w=width[i]), end="")
+        print()
+        i += 1
+    print(f"="*(sum(width)+10)+"")
+        
+
     input()
     
 
