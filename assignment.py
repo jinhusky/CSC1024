@@ -19,26 +19,28 @@ class colors:
 def main():
     # prints user interface menu
     database = []
-    key = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
+    index = 1
+    keys = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
     try:
         with open("books.txt") as txtfile:
 
             for line in txtfile:
                 ISBN, author, title, publisher, genre, year_published, date_purchased, status = line.rstrip().split(",")
-                book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
+                book = {"INDEX": index, "ISBN": ISBN, "author": author, "title": title, "publisher": publisher
                             , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
                 database.append(book)
+                index += 1
+
     except FileNotFoundError:
         print(colors.RED +"File not found. Create books.txt or check the file path."+ colors.ENDC)
 
-
-     
     prg_end = False 
     
 
     #run program until user selects exit option
     while prg_end == False:
         try:
+
             clearScreen()
             show_menu()
             option = input("\nSelect option (1 to 6): ")
@@ -48,18 +50,20 @@ def main():
                 print(colors.GREEN +"Book was successfuly added"+ colors.ENDC)
             
             elif int(option) == 2:
-                ...
+                delete_book(database)
+
             elif int(option) == 4:
-                display_books(database, key)
+                display_books(database, keys)
 
             elif int(option) == 6:
                 prg_end = True
 
             elif option == "":
                 continue
+
             
         except ValueError:
-            input(colors.RED + "Invalid input please enter 1 to 6"+ colors.ENDC)
+            input(colors.RED + "Invalid input please enter 1 to 6"+ colors.ENDC) 
             continue
 
     print(database)
@@ -93,7 +97,20 @@ def add_book(database):
     book = {"ISBN": ISBN, "author": author, "title": title, "publisher": publisher
                             , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
     database.append(book)
-    print(database)
+    
+
+def delete_book(database):
+    delete_list = []
+    choice = input("\nEnter the index of book you wish to delete: ")
+    for book in database:
+        if book["INDEX"] == choice:
+            delete_list.append(book)
+    for book in delete_list:
+        database.remove(book)
+    print("Book(s) deleted successfully.")
+    input()
+
+
 
 def get_ISBN(prompt):
     while True:
@@ -126,15 +143,17 @@ def get_alpha(prompt):
 def get_year_published(prompt):
     while True:
         try:
-            number = int(input(prompt))
-            if (number > 2023 or number < 1):
+            year = int(input(prompt))
+            current_year = datetime_s.datetime.now().year
+            if (year < 1 or year > current_year):
+                print(colors.RED + "Published year cannot be in the future or B.C." + colors.ENDC)
                 continue
-            
-        except ValueError:
+
+        except (ValueError, TypeError):
             print(colors.RED + "Invalid input, please enter a valid number!"+ colors.ENDC)
             continue
     
-        return str(number)
+        return str(year)
 
 def get_date_purchased(prompt):
     while True:
@@ -160,26 +179,14 @@ def get_status(prompt):
                  
         else:
             print(colors.RED + "Invalid input. Please enter either \"read\" or \"to-read\"."+ colors.ENDC)
-
-def display_books(database, key):
-    if not database:
-        print(colors.RED + "No books in the system." + colors.ENDC)
-        return
-    width = 200
-    height = 11
-
-    # Displaying headers
-    for hori_border in range(width):
-        print("=" , end="")
-        for vert_border in range(height):
-            ...
+    
         """
     # Displaying book details
     for book in database:
         print(f"{book['ISBN']:<20}{book['author']:<20}{book['title']:<40}{book['publisher']:<20}"
               f"{book['genre']:<20}{book['year_published']:<20}")
     """
-    input()
+    
 
 
 def show_menu():
