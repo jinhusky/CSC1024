@@ -14,10 +14,12 @@ class colors:
     YELLOW = '\033[93m'
     BLUE = '\033[94m'
     ENDC = '\033[0m'
+    BOLD = '\033[1m'
     
 def main():
     # prints user interface menu
     database = []
+    key = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
     try:
         with open("books.txt") as txtfile:
 
@@ -27,25 +29,28 @@ def main():
                             , "genre": genre, "year_published": year_published, "date_purchased": date_purchased, "status": status}
                 database.append(book)
     except FileNotFoundError:
-        print("File not found. Create books.txt or check the file path.")
+        print(colors.RED +"File not found. Create books.txt or check the file path."+ colors.ENDC)
 
 
      
     prg_end = False 
-    show_menu()
+    
 
     #run program until user selects exit option
     while prg_end == False:
         try:
+            clearScreen()
+            show_menu()
             option = input("\nSelect option (1 to 6): ")
 
             if int(option) == 1:
                 add_book(database)
+                print(colors.GREEN +"Book was successfuly added"+ colors.ENDC)
             
             elif int(option) == 2:
                 ...
             elif int(option) == 4:
-                display_books(database)
+                display_books(database, key)
 
             elif int(option) == 6:
                 prg_end = True
@@ -53,9 +58,8 @@ def main():
             elif option == "":
                 continue
             
-        
         except ValueError:
-            print(colors.RED + "Invalid input please enter 1 to 6")
+            input(colors.RED + "Invalid input please enter 1 to 6"+ colors.ENDC)
             continue
 
     print(database)
@@ -72,10 +76,7 @@ def main():
             new_file.write(book_info + "\n")
             
 
-"""
-clear screen
-    os.system(f"ipconfig /all") 
-"""
+
 def clearScreen():
     return os.system("cls" if os.name == 'nt' else 'clear')
 #Cat was here
@@ -141,6 +142,9 @@ def get_date_purchased(prompt):
             date_str = input(prompt)
             #convert the input string into datetime object with dd-mm-yyyy format
             date_obj = datetime_s.datetime.strptime(date_str, "%d-%m-%Y")
+            if date_obj > datetime_s.datetime.now():
+                print(colors.RED + "Invalid input. Cant purchase books in the future (dd-mm-yyyy): "+ colors.ENDC)
+                continue
 
             return str(date_obj.strftime("%d-%m-%Y"))
         
@@ -157,26 +161,29 @@ def get_status(prompt):
         else:
             print(colors.RED + "Invalid input. Please enter either \"read\" or \"to-read\"."+ colors.ENDC)
 
-def display_books(database):
+def display_books(database, key):
     if not database:
-        print("No books in the system.")
+        print(colors.RED + "No books in the system." + colors.ENDC)
         return
-
-    headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased"]
+    width = 200
+    height = 11
 
     # Displaying headers
-    for header in headers:
-        print(f"{header:<20}", end="")
-    print("\n" + "=" * 145)
-
+    for hori_border in range(width):
+        print("=" , end="")
+        for vert_border in range(height):
+            ...
+        """
     # Displaying book details
     for book in database:
         print(f"{book['ISBN']:<20}{book['author']:<20}{book['title']:<40}{book['publisher']:<20}"
               f"{book['genre']:<20}{book['year_published']:<20}")
+    """
+    input()
 
 
 def show_menu():
-    print(f"{colors.BLUE}[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit{colors.ENDC}\n")
+    print(f"{colors.BLUE}{colors.BOLD}[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit{colors.ENDC}\n")
           
 
 if __name__ == "__main__":
