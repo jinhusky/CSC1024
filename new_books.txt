@@ -23,4 +23,3 @@
 9780399147364,Stuart Woods,Cold Paradise,Putnam,Thriller,2001,10-07-2002,reading
 9780575065840,Terry Pratchett,Death Trilogy,Victor Gollancz,Science Fiction,1998,04-09-1999,to-read
 9780312874933,David Herter,Ceres Storm,ST MARTINS PRESS,Science Fiction,2000,02-05-2001,read
-123,A,a,A,A,201,25-07-2000,read

@@ -299,7 +299,7 @@ def delete_book(database, year_published):
             repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
         except ValueError:
-            input(color_font("Invalid input please enter 1 to 4", colors.RED))
+            input(color_font("Invalid input please enter intergers only", colors.RED))
             continue
 
         #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
@@ -352,32 +352,32 @@ def search_books(database):
             repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
         except ValueError:
-            input(color_font("Invalid input please enter 1 to 4", colors.RED))
+            input(color_font("Invalid input please enter intergers only", colors.RED))
             continue
 
-
-def update_book(database):
+def update_book(database, year_published):
     repeat = True
     while repeat:
         clearScreen()
         title_GG(3)
         display_books(database)
         print(color_font(
-            "[1] Enter ISBN of book to update\n"
-            "[2] Enter author of book to update\n"
-            "[3] Enter Title of book to update\n"
-            "[4] Enter Publisher of book to update\n"
-            "[5] Enter Genre of book to update\n"
-            "[6] Enter Year Published of book to update\n"
-            "[7] Enter Date Purchased of book to update\n"
-            "[8] Enter Status of book to update\n"
+            "[1] Enter Index of book to update\n"
+            "[2] Enter ISBN of book to update\n"
+            "[3] Enter author of book to update\n"
+            "[4] Enter Title of book to update\n"
+            "[5] Enter Publisher of book to update\n"
+            "[6] Enter Genre of book to update\n"
+            "[7] Enter Year Published of book to update\n"
+            "[8] Enter Date Purchased of book to update\n"
+            "[9] Enter Status of book to update\n"
             , colors.BLUE))
         
         try:
             option = input(color_font("\nSelect option (1-9): ", colors.YELLOW))
             
             if int(option) == 1:
-                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
+                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to update: ", database)
                 found_list = []
                 for book in database:
                     clearScreen()
@@ -387,36 +387,35 @@ def update_book(database):
                 display_books(found_list)
                 if len(found_list) == 0:
                     print(color_font("Book was not found", colors.RED))
-                deleting_items(found_list, database)
                 
-            
+                
             elif int(option) == 2:
                 found_list = searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
-                deleting_items(found_list, database)
+                
 
             elif int(option) == 3:
                 found_list = searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
-                deleting_items(found_list, database)    
+                   
 
             elif int(option) == 4:
                 found_list = searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
-                deleting_items(found_list, database)
+                
 
             elif int(option) == 5:
                 found_list = searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
-                deleting_items(found_list, database)
+                
 
             elif int(option) == 6:
                 found_list = searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
-                deleting_items(found_list, database)
+                
 
             elif int(option) == 7:
                 found_list = searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
-                deleting_items(found_list, database)
+                
 
             elif int(option) == 8:
                 found_list = searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: ", year_published))
-                deleting_items(found_list, database)
+                updating_item(found_list, database)
 
             elif int(option) == 9:
                 s = get_status("\nPress Ctrl + d to back\nEnter Status of book to delete: ")
@@ -429,22 +428,21 @@ def update_book(database):
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
                 
-                deleting_items(found_book, database)
-                
             else:
-                input(color_font("Invalid input please enter 1 to 9", colors.RED))
+                input(color_font("Invalid input please enter 1 to 8", colors.RED))
                 continue
 
             repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
         except ValueError:
-            input(color_font("Invalid input please enter 1 to 4", colors.RED))
+            input(color_font("Invalid input please enter interger 1 to 8", colors.RED))
             continue
 
         #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
         except EOFError:
             pass
             
+
 
 def get_INDEX(prompt, database):
     while True:
@@ -620,6 +618,37 @@ def deleting_items(found_list, database):
         except ValueError:
             input(color_font("Invalid input please enter integers 1 or 2", colors.RED))
             continue
+
+def updating_item(found_list, database):
+    while True:
+        clearScreen()
+        display_books(found_list)
+        
+        index = (color_font(f"Enter index of book you want to update/edit: \n", colors.BLUE))
+        for book in found_list: 
+            if index not in book[keys[0]]:
+                updating_book = book
+                print(updating_book)
+        
+        ISBN = get_ISBN(f"\nEnter New ISBN (Old:{book[keys[1]]}): ")
+        if ISBN == "":
+            ISBN = book[keys[1]]
+    
+        author = get_author(f"\nEnter new author name (Old:{book[keys[2]]}): ")
+        title = input(f"\nEnter new title (Old:{book[keys[3]]}): ")
+        publisher = get_alpha(f"\nEnter publisher name (Old:{book[keys[4]]}): ")
+        genre = get_alpha(f"\nEnter book's genre (Old:{book[keys[5]]}): ")
+        year_published = get_year_published(f"\nEnter the year book was published (Old:{book[keys[6]]}): ")
+        date_purchased = get_date_purchased(f"\nEnter the date book was purchased (Old:{book[keys[7]]}): ", year_published)
+        status = get_status(f"\nEnter the status of the book (Old:{book[keys[8]]}): ")
+
+        new_book = {"INDEX": book[keys[0]],"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
+                                , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
+        
+        database[int(book[keys[0]])] = new_book
+        
+
+    
 
 def show_options():
     print(color_font(f"[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n", colors.BLUE))
