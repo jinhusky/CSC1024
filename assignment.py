@@ -175,7 +175,7 @@ def delete_book(database, keys):
                 display_books(found_book, keys)
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
-                
+                delete_list = []
                 delete = get_INDEX("Enter the Index of book you wish to delete: ")
                 for book in database:
                     database.remove(book)
@@ -262,7 +262,6 @@ def get_INDEX(prompt, database):
            
         print(color_font("No such book exist in database enter valid INDEX.", colors.RED))
         
-
         
 def get_ISBN(prompt):
     while True:
