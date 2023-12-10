@@ -9,12 +9,12 @@ import os
 import datetime as datetime_s
 
 class colors:
-    RED = '\033[91m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    BLUE = '\033[94m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
     
 def main():
     # prints user interface menu
@@ -135,18 +135,20 @@ def search_books(database, keys):
 
             if int(option) == 1:
                 i = 0
-                m = get_ISBN("\nEnter International Standard Book Number (13-digits): ")
+                g = input("\nSearch (any categories): ")
                 for book in database:
-                    if book[keys[1]] == m:
-                        found_book.append(book)
-                        clearScreen()
-                        display_books(found_book, keys)
-                        i += 1
+                    for i in range(len(keys)):
+                        if book[keys[i]] == g:
+                            found_book.append(book)
+                            clearScreen()
+                            display_books(found_book, keys)
+                            i += 1
+                            
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
                 
             elif int(option) == 2:
-                m = get_ISBN("\nEnter International Standard Book Number (13-digits): ")
+                m = get_ISBN("\nEnter International Standard Book Number (13-digits) to search: ")
                 for book in database:
                     if book[keys[1]] == m:
                         found_book.append(book)
@@ -156,7 +158,7 @@ def search_books(database, keys):
                     print(color_font("Book was not found", colors.RED))
                     
             elif int(option) == 3:
-                a = get_author("\nEnter author name: ")
+                a = get_author("\nEnter author name to search: ")
                 for book in database:
                     if book[keys[2]] == a:
                         found_book.append(book)
@@ -166,11 +168,18 @@ def search_books(database, keys):
                     print(color_font("Book was not found", colors.RED))  
             
             elif int(option) == 4:
-                ...
+                a = input("\nEnter title of book to search: ")
+                for book in database:
+                    if book[keys[3]] == a:
+                        found_book.append(book)
+                        clearScreen()
+                        display_books(found_book, keys)
+                if len(found_book) == 0:
+                    print(color_font("Book was not found", colors.RED))
+
             else:
                 input(color_font("Invalid input please enter 1 to 6", colors.RED))
                 continue
-
 
             repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
@@ -178,7 +187,7 @@ def search_books(database, keys):
             input(color_font("Invalid input please enter 1 to 4", colors.RED))
             continue
 
-def get_result()
+
 
 def get_ISBN(prompt):
     while True:
@@ -248,12 +257,8 @@ def get_status(prompt):
         else:
             print(color_font("Invalid input. Please enter either \"read\" or \"to-read\".", colors.RED))
     
-        """
-    # Displaying book details
-    for book in database:
-        print(f"{book['ISBN']:<20}{book['author']:<20}{book['title']:<40}{book['publisher']:<20}"
-              f"{book['genre']:<20}{book['year_published']:<20}")
-    """
+     
+    
 def display_books(database, keys):
     width = [9, 17, 10, 9, 13, 9, 18, 18, 10]
     for book in database: 
