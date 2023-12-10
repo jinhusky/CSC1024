@@ -101,6 +101,8 @@ def title_GG(n):
 
 def main():
     # prints user interface menu
+
+    
     database = []
     index = 1
     
@@ -126,6 +128,7 @@ def main():
     while prg_end == False:
         
         clearScreen()
+        title_GG(0)
         show_options()
         try:
 
@@ -176,10 +179,12 @@ def main():
 
 def clearScreen():
     return os.system("cls" if os.name == 'nt' else 'clear')
-#Cat was here
+
+
 def add_book(database):
     repeat = True
     while repeat:
+        # fix empty inputs
         ISBN = get_ISBN("\nEnter International Standard Book Number (13-digits): ")      
         author = get_author("\nEnter author name: ")
         title = input("\nEnter title of book: ")
@@ -191,7 +196,11 @@ def add_book(database):
         book = {"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
                                 , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
         database.append(book)
-        repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+
+        repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+
+    clearScreen()
+    display_books(database)
 
 
 def delete_book(database, year_published):
@@ -218,16 +227,16 @@ def delete_book(database, year_published):
             
             if int(option) == 1:
                 k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
-                found_book = []
+                found_list = []
                 for book in database:
                     clearScreen()
                     if k == book[keys[0]]:
-                        found_book.append(book)
+                        found_list.append(book)
 
-                display_books(found_book)
-                if len(found_book) == 0:
+                display_books(found_list)
+                if len(found_list) == 0:
                     print(color_font("Book was not found", colors.RED))
-                
+                deleting_items(found_list, database)
                 
             
             elif int(option) == 2:
@@ -418,8 +427,8 @@ def get_status(prompt):
     
     
 def display_books(database):
-    
-    width = [9, 17, 10, 9, 13, 9, 18, 18, 10]
+
+    width = [7, 15, 10, 9, 13, 9, 18, 18, 10]
     for book in database: 
         for key in keys:
             if width[keys.index(key)] < len(book[key]):
@@ -476,7 +485,7 @@ def searching_item(database, key, k):
 def deleting_items(found_list, database):
     delete_list = []
     while True:
-        
+
         clearScreen()
         display_books(found_list)
         display_books(delete_list)
