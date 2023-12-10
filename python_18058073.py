@@ -18,6 +18,86 @@ class colors:
 
 keys = ["INDEX", "ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
 
+def title_GG(n):
+    match n:
+        case 0:
+            title_ = \
+            '''   
+  ____              _      __  __                                   
+| __ )  ___   ___ | | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __ 
+|  _ \ / _ \ / _ \| |/ / | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+| |_) | (_) | (_) |   <  | |  | | (_| | | | | (_| | (_| |  __/ |   
+|____/ \___/ \___/|_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
+                                                   |___/                   
+            '''
+        case 1:
+            title_ = \
+            '''
+    _       _     _   ____              _      ____                        _  __ __  
+   / \   __| | __| | | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |/ /_\ \ 
+  / _ \ / _` |/ _` | |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | / __| |
+ / ___ \ (_| | (_| | | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | \__ \ |
+/_/   \_\__,_|\__,_| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| |___/ |
+                                                                             \_\ /_/            
+                                          
+            '''
+        case 2:
+            title_ = \
+            '''
+ ____       _      _         ____              _      ____                        _    __ __  
+|  _ \  ___| | ___| |_ ___  | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |  / /_\ \ 
+| | | |/ _ \ |/ _ \ __/ _ \ |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | | / __| |
+| |_| |  __/ |  __/ ||  __/ | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | | \__ \ |
+|____/ \___|_|\___|\__\___| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| | |___/ |
+                                                                                      \_\ /_/                                          
+            '''
+        case 3:
+            title_ = \
+            '''
+ _   _           _       _          _______    _ _ _     ____              _      ____                        _    __ __  
+| | | |_ __   __| | __ _| |_ ___   / / ____|__| (_) |_  | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |  / /_\ \ 
+| | | | '_ \ / _` |/ _` | __/ _ \ / /|  _| / _` | | __| |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | | / __| |
+| |_| | |_) | (_| | (_| | ||  __// / | |__| (_| | | |_  | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | | \__ \ |
+ \___/| .__/ \__,_|\__,_|\__\___/_/  |_____\__,_|_|\__| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| | |___/ |
+      |_|                                                                                                         \_\ /_/ 
+                                        
+            '''
+        case 4:
+            title_ = \
+            '''
+  ____  _           _             _               ____              _    
+|  _ \(_)___ _ __ | | __ _ _   _(_)_ __   __ _  | __ )  ___   ___ | | __
+| | | | / __| '_ \| |/ _` | | | | | '_ \ / _` | |  _ \ / _ \ / _ \| |/ /
+| |_| | \__ \ |_) | | (_| | |_| | | | | | (_| | | |_) | (_) | (_) |   < 
+|____/|_|___/ .__/|_|\__,_|\__, |_|_| |_|\__, | |____/ \___/ \___/|_|\_\\n
+            |_|            |___/         |___/                          
+
+            '''
+        case 5:
+            title_ = \
+            '''
+ ____                      _     _               ____              _    
+/ ___|  ___  __ _ _ __ ___| |__ (_)_ __   __ _  | __ )  ___   ___ | | __
+\___ \ / _ \/ _` | '__/ __| '_ \| | '_ \ / _` | |  _ \ / _ \ / _ \| |/ /
+ ___) |  __/ (_| | | | (__| | | | | | | | (_| | | |_) | (_) | (_) |   < 
+|____/ \___|\__,_|_|  \___|_| |_|_|_| |_|\__, | |____/ \___/ \___/|_|\_\
+                                         |___/                          
+                                        
+            '''
+        case 6:
+            title_ = \
+            '''
+ _____      _ _     ____                               __       _ _       
+| ____|_  _(_) |_  / ___| _   _  ___ ___ ___  ___ ___ / _|_   _| | |_   _ 
+|  _| \ \/ / | __| \___ \| | | |/ __/ __/ _ \/ __/ __| |_| | | | | | | | |
+| |___ >  <| | |_   ___) | |_| | (_| (_|  __/\__ \__ \  _| |_| | | | |_| |
+|_____/_/\_\_|\__| |____/ \__,_|\___\___\___||___/___/_|  \__,_|_|_|\__, |
+                                                                    |___/ 
+                                        
+            '''
+    print(title_)
+    
+
 
 def main():
     # prints user interface menu
@@ -52,6 +132,8 @@ def main():
             option = input(color_font("\nSelect option (1-6): ", colors.YELLOW))
 
             if int(option) == 1:
+                clearScreen()
+                title_GG(1)
                 add_book(database)
                 print(color_font("Book was successfuly added", colors.GREEN))
             
@@ -60,11 +142,12 @@ def main():
 
             elif int(option) == 4:
                 clearScreen()
-                print(title(0))
+                title_GG(4)
                 display_books(database)
                 input()
 
             elif int(option) == 5:
+                clearScreen()
                 search_books(database)
                 
             elif int(option) == 6:
@@ -104,7 +187,7 @@ def add_book(database):
         genre = get_alpha("\nEnter book's genre: ")
         year_published = get_year_published("\nEnter the year book was published: ")
         date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ", year_published)
-        status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read'): ")
+        status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read' or 'reading'): ")
         book = {"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
                                 , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
         database.append(book)
@@ -116,6 +199,7 @@ def delete_book(database):
     
     while repeat:
         clearScreen()
+        title_GG(2)
         display_books(database)
         print(color_font(
             "[1] Enter Index of book to delete\n"
@@ -164,8 +248,11 @@ def delete_book(database):
             elif int(option) == 7:
                 searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
 
+                deleting_items(found_list, database)
+
             elif int(option) == 8:
                 searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: "))
+                deleting_items(found_list, database)
 
             elif int(option) == 9:
                 s = get_status("\nPress Ctrl + d to back\nEnter Status of book to delete: ")
@@ -178,7 +265,7 @@ def delete_book(database):
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
                 
-                deleting_items(found_book)
+                deleting_items(found_book, database)
                 
             else:
                 input(color_font("Invalid input please enter 1 to 9", colors.RED))
@@ -260,7 +347,7 @@ def get_ISBN(prompt):
     while True:
         ISBN = input(prompt)
 
-        if len(ISBN) == 13 and ISBN.isdigit():
+        if len(ISBN) == 3 and ISBN.isdigit():
             return str(ISBN)
         else:
             print(color_font("Invalid input. Please enter a 13-digit number.", colors.RED))
@@ -366,6 +453,8 @@ def cont_verify(c):
         else:
             input(color_font("Invalid input. Please enter either \"no\" or \"yes\".", colors.RED))
             continue
+    
+    
 
 def searching_item(database, key, k):
     found_book = []
@@ -373,41 +462,52 @@ def searching_item(database, key, k):
         clearScreen()
         if k.lower() in book[keys[key]].lower():
             found_book.append(book)
-
+    
     display_books(found_book)
     if len(found_book) == 0:
         print(color_font("Book was not found", colors.RED))
 
-def deleting_items(found_list):
+    return found_book
+
+def deleting_items(found_list, database):
+    delete_list = []
     while True:
-        delete_list = []
+        
         clearScreen()
         display_books(found_list)
         display_books(delete_list)
-
+        
         print(color_font(f"[1] Select book to delete\n[2] Delete all selected book and exit", colors.BLUE))
         try:
             option = input(color_font("\nSelect option (1 or 2): ", colors.YELLOW))
             if int(option) == 1:
-                
-                delete = input("\nEnter any information of book you wish to delete (e.g. ISBN, author, title): ")
-                for book in found_list:
-                    for i in range(len(keys)):
-                            delete_list.append(book)
-                            display_books(delete_list)
-                            print(delete_list)
-                
-                            input()
-
+                delete = get_INDEX("\nPlease select index of book you wish to delete (e.g.1): ", database)
+                for book in found_list: 
+                    if delete == book[keys[0]]:
+                        delete_list.append(book)
+                        found_list.remove(book)
+                            
                 if len(delete_list) == 0:
-                    input(color_font("Book was not found", colors.RED)) 
+                        input(color_font("Book was not found", colors.RED)) 
+                
+            elif int(option) == 2:
+                for book in delete_list:
+                    if book in database:
+                        database.remove(book)
 
+                    else:
+                        break
+
+                input(color_font("Book(s) was successfuly deleted", colors.GREEN))
+                break
+                    
+            else:
+                input(color_font("Invalid input please enter 1 or 2", colors.RED))
+                continue
 
         except ValueError:
             input(color_font("Invalid input please enter integers 1 or 2", colors.RED))
             continue
-
-        
 
 def show_options():
     print(color_font(f"[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n", colors.BLUE))
@@ -415,82 +515,5 @@ def show_options():
 def color_font(text, color):
     return color+text+colors.ENDC
 
-def title(n):
-    match n:
-        case 0:
-            title_0 = \
-            '''   
-  ____              _      __  __                                   
-| __ )  ___   ___ | | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __ 
-|  _ \ / _ \ / _ \| |/ / | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
-| |_) | (_) | (_) |   <  | |  | | (_| | | | | (_| | (_| |  __/ |   
-|____/ \___/ \___/|_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
-                                                   |___/                   
-            '''
-        case 1:
-            title_1 = \
-            '''
-    _       _     _   ____              _      ____                        _  __ __  
-   / \   __| | __| | | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |/ /_\ \ 
-  / _ \ / _` |/ _` | |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | / __| |
- / ___ \ (_| | (_| | | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | \__ \ |
-/_/   \_\__,_|\__,_| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| |___/ |
-                                                                             \_\ /_/            
-                                          
-            '''
-        case 2:
-            title_2 = \
-            '''
- ____       _      _         ____              _      ____                        _    __ __  
-|  _ \  ___| | ___| |_ ___  | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |  / /_\ \ 
-| | | |/ _ \ |/ _ \ __/ _ \ |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | | / __| |
-| |_| |  __/ |  __/ ||  __/ | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | | \__ \ |
-|____/ \___|_|\___|\__\___| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| | |___/ |
-                                                                                      \_\ /_/                                          
-            '''
-        case 3:
-            title_3 = \
-            '''
- _   _           _       _          _______    _ _ _     ____              _      ____                        _    __ __  
-| | | |_ __   __| | __ _| |_ ___   / / ____|__| (_) |_  | __ )  ___   ___ | | __ |  _ \ ___  ___ ___  _ __ __| |  / /_\ \ 
-| | | | '_ \ / _` |/ _` | __/ _ \ / /|  _| / _` | | __| |  _ \ / _ \ / _ \| |/ / | |_) / _ \/ __/ _ \| '__/ _` | | / __| |
-| |_| | |_) | (_| | (_| | ||  __// / | |__| (_| | | |_  | |_) | (_) | (_) |   <  |  _ <  __/ (_| (_) | | | (_| | | \__ \ |
- \___/| .__/ \__,_|\__,_|\__\___/_/  |_____\__,_|_|\__| |____/ \___/ \___/|_|\_\ |_| \_\___|\___\___/|_|  \__,_| | |___/ |
-      |_|                                                                                                         \_\ /_/ 
-                                        
-            '''
-        case 4:
-            title_4 = \
-            '''
- ____  _           _             _               ____              _    
-|  _ \(_)___ _ __ | | __ _ _   _(_)_ __   __ _  | __ )  ___   ___ | | __
-| | | | / __| '_ \| |/ _` | | | | | '_ \ / _` | |  _ \ / _ \ / _ \| |/ /
-| |_| | \__ \ |_) | | (_| | |_| | | | | | (_| | | |_) | (_) | (_) |   < 
-|____/|_|___/ .__/|_|\__,_|\__, |_|_| |_|\__, | |____/ \___/ \___/|_|\_\
-            |_|            |___/         |___/                          
-                                        
-            '''
-        case 5:
-            title_5 = \
-            '''
- ____                      _     _               ____              _    
-/ ___|  ___  __ _ _ __ ___| |__ (_)_ __   __ _  | __ )  ___   ___ | | __
-\___ \ / _ \/ _` | '__/ __| '_ \| | '_ \ / _` | |  _ \ / _ \ / _ \| |/ /
- ___) |  __/ (_| | | | (__| | | | | | | | (_| | | |_) | (_) | (_) |   < 
-|____/ \___|\__,_|_|  \___|_| |_|_|_| |_|\__, | |____/ \___/ \___/|_|\_\
-                                         |___/                          
-                                        
-            '''
-        case 6:
-            title_6 = \
-            '''
- _____      _ _     ____                               __       _ _       
-| ____|_  _(_) |_  / ___| _   _  ___ ___ ___  ___ ___ / _|_   _| | |_   _ 
-|  _| \ \/ / | __| \___ \| | | |/ __/ __/ _ \/ __/ __| |_| | | | | | | | |
-| |___ >  <| | |_   ___) | |_| | (_| (_|  __/\__ \__ \  _| |_| | | | |_| |
-|_____/_/\_\_|\__| |____/ \__,_|\___\___\___||___/___/_|  \__,_|_|_|\__, |
-                                                                    |___/ 
-                                        
-            '''
 if __name__ == "__main__":
     main()
