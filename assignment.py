@@ -15,12 +15,13 @@ class colors:
     BLUE = "\033[94m"
     ENDC = "\033[0m"
     BOLD = "\033[1m"
-    
+
+keys = ["INDEX", "ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
+
 def main():
     # prints user interface menu
     database = []
     index = 1
-    keys = ["INDEX", "ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
     
     try:
         with open("books.txt") as txtfile:
@@ -47,15 +48,14 @@ def main():
         show_options()
         try:
 
-            option = input("\nSelect option (1 to 6): ")
+            option = input(color_font("\nSelect option (1-6): ", colors.YELLOW))
 
             if int(option) == 1:
                 add_book(database)
                 print(color_font("Book was successfuly added", colors.GREEN))
             
             elif int(option) == 2:
-                display_books(database, keys)
-                delete_book(database)
+                delete_book(database, keys)
 
             elif int(option) == 4:
                 display_books(database, keys)
@@ -66,16 +66,14 @@ def main():
                 
             elif int(option) == 6:
                 prg_end = True
+                print(database)
 
             elif option == "":
                 continue
 
-            
         except ValueError:
             input(color_font("Invalid input please enter 1 to 6", colors.RED))
             continue
-
-    print(database)
 
     with open("new_books.txt", "w") as new_file:
         for book in database:
@@ -110,10 +108,26 @@ def add_book(database):
         repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
 
-def delete_book(database):
+def delete_book(database, keys):
+    repeat = True
+    
+    while repeat:
         delete_list = []
-        delete_options = print(color_font(f"[1] Enter ISBN to delete \n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n", colors.BLUE))
-        choice = input("\nEnter the index of book you wish to delete: ")
+        clearScreen()
+        display_books(database, keys)
+        print(color_font(
+            "[1] Enter Index of book to delete\n"
+            "[2] Enter ISBN of book to delete\n"
+            "[3] Enter author of book to delete\n"
+            "[4] Enter Title of book to delete\n"
+            "[5] Enter Publisher of book to delete\n"
+            "[6] Enter Genre of book to delete\n"
+            "[7] Enter Year Published of book to delete\n"
+            "[8] Enter Date Purchased of book to delete\n"
+            "[9] Enter Status of book to delete\n"
+            , colors.BLUE))
+        
+        option = input(color_font("\nSelect option (1-9): ", colors.YELLOW))
         for book in database:
             if book["INDEX"] == choice:
                 delete_list.append(book)
@@ -129,59 +143,59 @@ def search_books(database, keys):
     while repeat:
         found_book = []
         clearScreen()
-        print(color_font(f"[1] General Search\n[2] Search by ISBN\n[3] Search by author\n[4] Search by title \n", colors.YELLOW))
+        print(color_font(f"[1] General Search\n[2] Random search\n[3] Search by ISBN\n[4] Search by author\n[5] Search by title \n", colors.BLUE))
         try:
-            option = input("Enter your option here: ")
+            option = input(color_font("\nSelect option (1-5): ", colors.YELLOW))
 
             if int(option) == 1:
                 i = 0
                 g = input("\nSearch (any categories): ")
                 for book in database:
                     for i in range(len(keys)):
-                        if book[keys[i]] == g:
+                        if g.lower() in book[keys[i]].lower():
                             found_book.append(book)
                             clearScreen()
                             display_books(found_book, keys)
                             i += 1
-                            
+
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
-                
+            
             elif int(option) == 2:
+                rand = random.choice(database)
+                found_book.append(rand)
+                clearScreen()
+                display_books(found_book, keys)
+            
+            elif int(option) == 3:
                 m = get_ISBN("\nEnter International Standard Book Number (13-digits) to search: ")
                 for book in database:
-                    if book[keys[1]] == m:
+                    if m.lower() in book[keys[1]].lower():
                         found_book.append(book)
                         clearScreen()
                         display_books(found_book, keys)
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
                     
-            elif int(option) == 3:
+            elif int(option) == 4:
                 a = get_author("\nEnter author name to search: ")
                 for book in database:
-                    if book[keys[2]] == a:
+                    if a.lower() in book[keys[2]].lower():
                         found_book.append(book)
                         clearScreen()
                         display_books(found_book, keys)
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))  
             
-            elif int(option) == 4:
-                a = input("\nEnter title of book to search: ")
-                for book in database:
-                    if book[keys[3]] == a:
-                        found_book.append(book)
-                        clearScreen()
-                        display_books(found_book, keys)
-                if len(found_book) == 0:
-                    print(color_font("Book was not found", colors.RED))
-
+            elif int(option) == 5:
+                searching_item(database, key = 3, k = input("\nEnter title of book to search: "))
+                
+            
             else:
                 input(color_font("Invalid input please enter 1 to 6", colors.RED))
                 continue
 
-            repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+            repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
         except ValueError:
             input(color_font("Invalid input please enter 1 to 4", colors.RED))
@@ -292,15 +306,25 @@ def display_books(database, keys):
 
 def cont_verify(c):
      while True:
-        answer = c.lower()
-
+        answer = input(c).lower()
         if  answer == "no" or answer == "n":
             return False
         elif answer == "yes" or answer == "y":
             return True
         else:
-            print(color_font("Invalid input. Please enter either \"no\" or \"yes\".", colors.RED))
-    
+            input(color_font("Invalid input. Please enter either \"no\" or \"yes\".", colors.RED))
+            continue
+
+def searching_item(database, key, k):
+    found_book = []
+    for book in database:
+        clearScreen()
+        if k.lower() in book[keys[key]].lower():
+            found_book.append(book)
+
+    display_books(found_book, keys)
+    if len(found_book) == 0:
+        print(color_font("Book was not found", colors.RED))
 
 def show_options():
     print(color_font(f"[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n", colors.BLUE))
