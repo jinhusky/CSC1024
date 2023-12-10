@@ -18,6 +18,53 @@ class colors:
 
 keys = ["INDEX", "ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
 
+def title(n=0):
+    match n:
+        case 0:
+            title_0 = \
+            '''   
+            ______                   __        ____    ____                                               
+            |_   _ \                 [  |  _   |_   \  /   _|                                              
+            | |_) |   .--.    .--.  | | / ]    |   \/   |   ,--.   _ .--.   ,--.   .--./) .---.  _ .--.  
+            |  __'. / .'`\ \/ .'`\ \| '' <     | |\  /| |  `'_\ : [ `.-. | `'_\ : / /'`\;/ /__\\[ `/'`\] 
+            _| |__) || \__. || \__. || |`\ \   _| |_\/_| |_ // | |, | | | | // | |,\ \._//| \__., | |     
+            |_______/  '.__.'  '.__.'[__|  \_] |_____||_____|\'-;__/[___||__]\'-;__/.',__`  '.__.'[___]    
+                                                                                ( ( __))                
+        
+            '''
+        case 1:
+            title_2 = \
+            '''
+
+      _            __       __   _                    ______                   __       
+     / \          |  ]     |  ] (_)                  |_   _ \                 [  |  _   
+    / _ \     .--.| |  .--.| |  __   _ .--.   .--./)   | |_) |   .--.    .--.  | | / ]  
+   / ___ \  / /'`\' |/ /'`\' | [  | [ `.-. | / /'`\;   |  __'. / .'`\ \/ .'`\ \| '' <   
+ _/ /   \ \_| \__/  || \__/  |  | |  | | | | \ \._//  _| |__) || \__. || \__. || |`\ \  
+|____| |____|'.__.;__]'.__.;__][___][___||__].',__`  |_______/  '.__.'  '.__.'[__|  \_] 
+                                            ( ( __))                                    
+
+                                          
+            '''
+
+        case 2:
+        title_2 = \
+            '''
+
+      _            __       __   _                    ______                   __       
+     / \          |  ]     |  ] (_)                  |_   _ \                 [  |  _   
+    / _ \     .--.| |  .--.| |  __   _ .--.   .--./)   | |_) |   .--.    .--.  | | / ]  
+   / ___ \  / /'`\' |/ /'`\' | [  | [ `.-. | / /'`\;   |  __'. / .'`\ \/ .'`\ \| '' <   
+ _/ /   \ \_| \__/  || \__/  |  | |  | | | | \ \._//  _| |__) || \__. || \__. || |`\ \  
+|____| |____|'.__.;__]'.__.;__][___][___||__].',__`  |_______/  '.__.'  '.__.'[__|  \_] 
+                                            ( ( __))                                    
+
+                                          
+            '''
+
+
+    
+    
 def main():
     # prints user interface menu
     database = []
@@ -55,18 +102,20 @@ def main():
                 print(color_font("Book was successfuly added", colors.GREEN))
             
             elif int(option) == 2:
-                delete_book(database, keys)
+                delete_book(database)
 
             elif int(option) == 4:
-                display_books(database, keys)
+                clearScreen()
+                print(title_1)
+                display_books(database)
                 input()
 
             elif int(option) == 5:
-                search_books(database, keys)
+                search_books(database)
                 
             elif int(option) == 6:
                 prg_end = True
-                print(database)
+                
 
             elif option == "":
                 continue
@@ -108,12 +157,12 @@ def add_book(database):
         repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
 
-def delete_book(database, keys):
+def delete_book(database):
     repeat = True
     
     while repeat:
         clearScreen()
-        display_books(database, keys)
+        display_books(database)
         print(color_font(
             "[1] Enter Index of book to delete\n"
             "[2] Enter ISBN of book to delete\n"
@@ -137,7 +186,7 @@ def delete_book(database, keys):
                     if k == book[keys[0]]:
                         found_book.append(book)
 
-                display_books(found_book, keys)
+                display_books(found_book)
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
                 
@@ -172,13 +221,10 @@ def delete_book(database, keys):
                     if s == book[keys[8]]:
                         found_book.append(book)
 
-                display_books(found_book, keys)
                 if len(found_book) == 0:
                     print(color_font("Book was not found", colors.RED))
-                delete_list = []
-                delete = get_INDEX("Enter the Index of book you wish to delete: ")
-                for book in database:
-                    database.remove(book)
+                
+                deleting_items(found_book)
                 
             else:
                 input(color_font("Invalid input please enter 1 to 9", colors.RED))
@@ -193,18 +239,10 @@ def delete_book(database, keys):
         #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
         except EOFError:
             pass
-
-        for book in database:
-            if book["INDEX"] == choice:
-                delete_list.append(book)
-        for book in delete_list:
-            database.remove(book)
-        print(color_font("Book(s) deleted successfully.", colors.GREEN))
-        input()
-        
+ 
 
 
-def search_books(database, keys):
+def search_books(database):
     repeat = True
     
     while repeat:
@@ -222,7 +260,7 @@ def search_books(database, keys):
                         if g.lower() in book[keys[i]].lower():
                             found_book.append(book)
                             clearScreen()
-                            display_books(found_book, keys)
+                            display_books(found_book)
                             i += 1
 
                 if len(found_book) == 0:
@@ -232,7 +270,7 @@ def search_books(database, keys):
                 rand = random.choice(database)
                 found_book.append(rand)
                 clearScreen()
-                display_books(found_book, keys)
+                display_books(found_book)
             
             elif int(option) == 3:
                 searching_item(database, key = 1, k = get_ISBN("\nEnter International Standard Book Number (13-digits) to search: "))
@@ -279,6 +317,7 @@ def get_author(prompt):
         if all(char.isalpha() or char.isspace() or char == '.' for char in author):
             # Allow alphabets, spaces, and dots in the author name
             return str(author.title())
+        
         else:
             print(color_font(f"Invalid input. Please enter only alpha \".\" for author's name.", colors.RED))
 
@@ -332,7 +371,8 @@ def get_status(prompt):
             print(color_font("Invalid input. Please enter either \"read\" or \"to-read\" or \"reading\".", colors.RED))
     
     
-def display_books(database, keys):
+def display_books(database):
+    
     width = [9, 17, 10, 9, 13, 9, 18, 18, 10]
     for book in database: 
         for key in keys:
@@ -380,15 +420,47 @@ def searching_item(database, key, k):
         if k.lower() in book[keys[key]].lower():
             found_book.append(book)
 
-    display_books(found_book, keys)
+    display_books(found_book)
     if len(found_book) == 0:
         print(color_font("Book was not found", colors.RED))
+
+def deleting_items(found_list):
+    while True:
+        delete_list = []
+        clearScreen()
+        display_books(found_list)
+        display_books(delete_list)
+
+        print(color_font(f"[1] Select book to delete\n[2] Delete all selected book and exit", colors.BLUE))
+        try:
+            option = input(color_font("\nSelect option (1 or 2): ", colors.YELLOW))
+            if int(option) == 1:
+
+                delete = input("\nEnter any information of book you wish to delete: ")
+                for book in found_list:
+                    for i in range(len(keys)):
+                        if delete.lower() in book[keys[i]].lower():
+                            delete_list.append(book)
+                            display_books(delete_list)
+                            i += 1
+
+                if len(delete_list) == 0:
+                    input(color_font("Book was not found", colors.RED)) 
+
+        
+
+        except ValueError:
+            input(color_font("Invalid input please enter integers 1 or 2", colors.RED))
+            continue
+
+        
 
 def show_options():
     print(color_font(f"[1] Add Book Record(s)\n[2] Delete Book Record(s)\n[3] Update/Edit Book Record(s)\n[4] Display\n[5] Search\n[6] Exit\n", colors.BLUE))
 
 def color_font(text, color):
     return color+text+colors.ENDC
+
 
 if __name__ == "__main__":
     main()
