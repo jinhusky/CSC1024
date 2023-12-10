@@ -80,7 +80,7 @@ def title_GG(n):
 / ___|  ___  __ _ _ __ ___| |__ (_)_ __   __ _  | __ )  ___   ___ | | __
 \___ \ / _ \/ _` | '__/ __| '_ \| | '_ \ / _` | |  _ \ / _ \ / _ \| |/ /
  ___) |  __/ (_| | | | (__| | | | | | | | (_| | | |_) | (_) | (_) |   < 
-|____/ \___|\__,_|_|  \___|_| |_|_|_| |_|\__, | |____/ \___/ \___/|_|\_\
+|____/ \___|\__,_|_|  \___|_| |_|_|_| |_|\__, | |____/ \___/ \___/|_|\_\\n
                                          |___/                          
                                         
             '''
@@ -137,11 +137,18 @@ def main():
             if int(option) == 1:
                 clearScreen()
                 title_GG(1)
-                add_book(database)
-                print(color_font("Book was successfuly added", colors.GREEN))
+                add_book(database, index)
+                
             
             elif int(option) == 2:
+                clearScreen()
+                title_GG(2)
                 delete_book(database, year_published)
+            
+            elif int(option) == 3:
+                clearScreen()
+                title_GG(3)
+                update_book(database, year_published)
 
             elif int(option) == 4:
                 clearScreen()
@@ -151,9 +158,12 @@ def main():
 
             elif int(option) == 5:
                 clearScreen()
+                title_GG(5)
                 search_books(database)
                 
             elif int(option) == 6:
+                clearScreen()
+                title_GG(6)
                 prg_end = True
                 
 
@@ -181,7 +191,7 @@ def clearScreen():
     return os.system("cls" if os.name == 'nt' else 'clear')
 
 
-def add_book(database):
+def add_book(database, index):
     repeat = True
     while repeat:
         # fix empty inputs
@@ -193,14 +203,16 @@ def add_book(database):
         year_published = get_year_published("\nEnter the year book was published: ")
         date_purchased = get_date_purchased("\nEnter the date book was purchased (e.g. 13-08-2000): ", year_published)
         status = get_status("\nEnter the status of the book (e.g. 'read' or 'to-read' or 'reading'): ")
-        book = {"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
+        book = {"INDEX": str(index),"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
                                 , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
+        
         database.append(book)
 
-        repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+        repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN))) 
 
     clearScreen()
-    display_books(database)
+    input(display_books(database))
+    input(color_font("\nBook was successfuly added", colors.GREEN))
 
 
 def delete_book(database, year_published):
@@ -293,15 +305,12 @@ def delete_book(database, year_published):
         #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
         except EOFError:
             pass
- 
-
 
 def search_books(database):
     repeat = True
     
     while repeat:
         found_book = []
-        clearScreen()
         print(color_font(f"[1] General Search\n[2] Random search\n[3] Search by ISBN\n[4] Search by author\n[5] Search by title \n", colors.BLUE))
         try:
             option = input(color_font("\nSelect option (1-5): ", colors.YELLOW))
@@ -345,7 +354,98 @@ def search_books(database):
         except ValueError:
             input(color_font("Invalid input please enter 1 to 4", colors.RED))
             continue
+
+
+def update_book(database):
+    repeat = True
+    while repeat:
+        clearScreen()
+        title_GG(3)
+        display_books(database)
+        print(color_font(
+            "[1] Enter ISBN of book to update\n"
+            "[2] Enter author of book to update\n"
+            "[3] Enter Title of book to update\n"
+            "[4] Enter Publisher of book to update\n"
+            "[5] Enter Genre of book to update\n"
+            "[6] Enter Year Published of book to update\n"
+            "[7] Enter Date Purchased of book to update\n"
+            "[8] Enter Status of book to update\n"
+            , colors.BLUE))
         
+        try:
+            option = input(color_font("\nSelect option (1-9): ", colors.YELLOW))
+            
+            if int(option) == 1:
+                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
+                found_list = []
+                for book in database:
+                    clearScreen()
+                    if k == book[keys[0]]:
+                        found_list.append(book)
+
+                display_books(found_list)
+                if len(found_list) == 0:
+                    print(color_font("Book was not found", colors.RED))
+                deleting_items(found_list, database)
+                
+            
+            elif int(option) == 2:
+                found_list = searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
+                deleting_items(found_list, database)
+
+            elif int(option) == 3:
+                found_list = searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
+                deleting_items(found_list, database)    
+
+            elif int(option) == 4:
+                found_list = searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
+                deleting_items(found_list, database)
+
+            elif int(option) == 5:
+                found_list = searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
+                deleting_items(found_list, database)
+
+            elif int(option) == 6:
+                found_list = searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
+                deleting_items(found_list, database)
+
+            elif int(option) == 7:
+                found_list = searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
+                deleting_items(found_list, database)
+
+            elif int(option) == 8:
+                found_list = searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: ", year_published))
+                deleting_items(found_list, database)
+
+            elif int(option) == 9:
+                s = get_status("\nPress Ctrl + d to back\nEnter Status of book to delete: ")
+                found_book = []
+                for book in database:
+                    clearScreen()
+                    if s == book[keys[8]]:
+                        found_book.append(book)
+
+                if len(found_book) == 0:
+                    print(color_font("Book was not found", colors.RED))
+                
+                deleting_items(found_book, database)
+                
+            else:
+                input(color_font("Invalid input please enter 1 to 9", colors.RED))
+                continue
+
+            repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+
+        except ValueError:
+            input(color_font("Invalid input please enter 1 to 4", colors.RED))
+            continue
+
+        #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
+        except EOFError:
+            pass
+            
+
 def get_INDEX(prompt, database):
     while True:
         num = input(prompt)
@@ -428,7 +528,7 @@ def get_status(prompt):
     
 def display_books(database):
 
-    width = [7, 15, 10, 9, 13, 9, 18, 18, 10]
+    width = [5, 13, 8, 7, 11, 7, 16, 16, 8]
     for book in database: 
         for key in keys:
             if width[keys.index(key)] < len(book[key]):

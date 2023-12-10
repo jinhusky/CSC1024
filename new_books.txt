@@ -9,6 +9,7 @@
 9780974702735,Vicki Luther,Clues to Rural Community Survival,Heartland Center for Leadership Development,Sociology,2008,16-03-2010,to-read
 9780618606238,Paul Roberts,The End Of Food,Houghton Mifflin Harcourt,Agriculture,2008,29-05-2009,read
 9780048000774,Harold Beaver,Huckleberry Finn,Unwin Hyman,American Literature,1988,13-07-1989,to-read
+9780918949257,Sandra Martz,If I Had My Life to Live Over,Papier-Mache Press,Self-help,2010,08-09-2012,read
 9780743281614,Robert Crais,The Two Minute Rule,Simon & Schuster,Adventure Fiction,2006,03-11-2007,to-read
 9780399150418,Clive Cussler,White Death,G. P. Putnam's Sons,Adventure Fiction,2003,20-02-2005,reading
 9780224072991,Ian McEwan,Saturday,Jonathan Cape Ltd,British literature,2005,28-04-2006,to-read
@@ -22,3 +23,4 @@
 9780399147364,Stuart Woods,Cold Paradise,Putnam,Thriller,2001,10-07-2002,reading
 9780575065840,Terry Pratchett,Death Trilogy,Victor Gollancz,Science Fiction,1998,04-09-1999,to-read
 9780312874933,David Herter,Ceres Storm,ST MARTINS PRESS,Science Fiction,2000,02-05-2001,read
+123,A,a,A,A,201,25-07-2000,read
