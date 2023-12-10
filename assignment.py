@@ -112,7 +112,6 @@ def delete_book(database, keys):
     repeat = True
     
     while repeat:
-        delete_list = []
         clearScreen()
         display_books(database, keys)
         print(color_font(
@@ -127,7 +126,74 @@ def delete_book(database, keys):
             "[9] Enter Status of book to delete\n"
             , colors.BLUE))
         
-        option = input(color_font("\nSelect option (1-9): ", colors.YELLOW))
+        try:
+            option = input(color_font("\nSelect option (1-9): ", colors.YELLOW))
+            
+            if int(option) == 1:
+                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
+                found_book = []
+                for book in database:
+                    clearScreen()
+                    if k == book[keys[0]]:
+                        found_book.append(book)
+
+                display_books(found_book, keys)
+                if len(found_book) == 0:
+                    print(color_font("Book was not found", colors.RED))
+                
+                
+            
+            elif int(option) == 2:
+                searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
+            
+            elif int(option) == 3:
+                searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
+                    
+            elif int(option) == 4:
+                searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
+            
+            elif int(option) == 5:
+                searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
+
+            elif int(option) == 6:
+                searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
+
+            elif int(option) == 7:
+                searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
+
+            elif int(option) == 8:
+                searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: "))
+
+            elif int(option) == 9:
+                s = get_status("\nPress Ctrl + d to back\nEnter Status of book to delete: ")
+                found_book = []
+                for book in database:
+                    clearScreen()
+                    if s == book[keys[8]]:
+                        found_book.append(book)
+
+                display_books(found_book, keys)
+                if len(found_book) == 0:
+                    print(color_font("Book was not found", colors.RED))
+                
+                delete = get_INDEX("Enter the Index of book you wish to delete: ")
+                for book in database:
+                    database.remove(book)
+                
+            else:
+                input(color_font("Invalid input please enter 1 to 9", colors.RED))
+                continue
+
+            repeat = cont_verify((color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
+
+        except ValueError:
+            input(color_font("Invalid input please enter 1 to 4", colors.RED))
+            continue
+
+        #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
+        except EOFError:
+            pass
+
         for book in database:
             if book["INDEX"] == choice:
                 delete_list.append(book)
@@ -135,6 +201,7 @@ def delete_book(database, keys):
             database.remove(book)
         print(color_font("Book(s) deleted successfully.", colors.GREEN))
         input()
+        
 
 
 def search_books(database, keys):
@@ -168,29 +235,14 @@ def search_books(database, keys):
                 display_books(found_book, keys)
             
             elif int(option) == 3:
-                m = get_ISBN("\nEnter International Standard Book Number (13-digits) to search: ")
-                for book in database:
-                    if m.lower() in book[keys[1]].lower():
-                        found_book.append(book)
-                        clearScreen()
-                        display_books(found_book, keys)
-                if len(found_book) == 0:
-                    print(color_font("Book was not found", colors.RED))
+                searching_item(database, key = 1, k = get_ISBN("\nEnter International Standard Book Number (13-digits) to search: "))
                     
             elif int(option) == 4:
-                a = get_author("\nEnter author name to search: ")
-                for book in database:
-                    if a.lower() in book[keys[2]].lower():
-                        found_book.append(book)
-                        clearScreen()
-                        display_books(found_book, keys)
-                if len(found_book) == 0:
-                    print(color_font("Book was not found", colors.RED))  
+                searching_item(database, key = 2, k = get_author("\nEnter author name to search: "))
             
             elif int(option) == 5:
                 searching_item(database, key = 3, k = input("\nEnter title of book to search: "))
                 
-            
             else:
                 input(color_font("Invalid input please enter 1 to 6", colors.RED))
                 continue
@@ -200,9 +252,18 @@ def search_books(database, keys):
         except ValueError:
             input(color_font("Invalid input please enter 1 to 4", colors.RED))
             continue
+        
+def get_INDEX(prompt, database):
+    while True:
+        num = input(prompt)
+        for book in database:
+            if num == book[keys[0]]:
+                return str(num)
+           
+        print(color_font("No such book exist in database enter valid INDEX.", colors.RED))
+        
 
-
-
+        
 def get_ISBN(prompt):
     while True:
         ISBN = input(prompt)
@@ -265,13 +326,12 @@ def get_status(prompt):
     while True:
         status = input(prompt)
 
-        if status == "read" or status == "to-read":
+        if status == "read" or status == "to-read" or status == "reading":
             return str(status)
                  
         else:
-            print(color_font("Invalid input. Please enter either \"read\" or \"to-read\".", colors.RED))
+            print(color_font("Invalid input. Please enter either \"read\" or \"to-read\" or \"reading\".", colors.RED))
     
-     
     
 def display_books(database, keys):
     width = [9, 17, 10, 9, 13, 9, 18, 18, 10]
@@ -301,7 +361,6 @@ def display_books(database, keys):
         i += 1
     print(color_font(f"="*(sum(width)+10)+"", colors.GREEN))
     
-
 
 
 def cont_verify(c):

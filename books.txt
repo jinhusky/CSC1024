@@ -1,7 +1,25 @@
 9781785785719,Yasha Levine,Surveillance Valley,Icon Books, Politics,2019,02-01-2020,read 
 9780241976630,John Maeda,How to Speak Machine,Portfolio UK,Artificial Intelligence,2019,02-01-2020,to-read 
 9781119055808,Andre De Vries,R For Dummies,John Wiley,Programming,2015,12-08-2016,read 
-9780062018205,Dan Ariely,Predictably Irrational,Harper Collins,Psychology,2010,03-06-2019,read 
+9780062018205,Dan Ariely,Predictably Irrational,Harper Collins,Psychology,2010,03-06-2019,reading 
 9780008327613,John Walsh,The Globalist,Harper Collins, Biography & Autobiography,2019, 11-05-2021,to-read 
 9780525538349,John Doerr,Measure What Matters,Penguin LCC,Management,2018, 21-09-2022,to-read 
 9780807092156,Viktor Frankl,Man's Search for Meaning,Random House,Philosophy,2019, 30-08-2021,to-read
+9780674430006,Thomas Piketty,Capital in the Twenty-First Century,The Belknap Press of Harvard University Press,Economics & Social Sciences,2014,12-01-2015,read
+9780974702735,Vicki Luther,Clues to Rural Community Survival,Heartland Center for Leadership Development,Sociology,2008,16-03-2010,to-read
+9780618606238,Paul Roberts,The End Of Food,Houghton Mifflin Harcourt,Agriculture,2008,29-05-2009,read
+9780048000774,Harold Beaver,Huckleberry Finn,Unwin Hyman,American Literature,1988,13-07-1989,to-read
+9780918949257,Sandra Martz,If I Had My Life to Live Over,Papier-Mache Press,Self-help,2010,08-09-2012,read
+9780743281614,Robert Crais,The Two Minute Rule,Simon & Schuster,Adventure Fiction,2006,03-11-2007,to-read
+9780399150418,Clive Cussler,White Death,G. P. Putnam's Sons,Adventure Fiction,2003,20-02-2005,reading
+9780224072991,Ian McEwan,Saturday,Jonathan Cape Ltd,British literature,2005,28-04-2006,to-read
+9780805456431,Carolyn Shealy Self,Survival Kit for Marriage,Baptist Sunday School Board,Relationships,1981,06-06-1984,to-read
+9780844232249,John Stockwell,Direct Marketing Checklists,Ntc Business Books,Business,1994,31-08-1995,read
+9780814629840,Joseph F. Kelly,The Origins of Christmas,Liturgical Press,Religion,2004,11-10-2008,to-read
+9781872337463,Bob Ogley,GHOSTS OF BIGGIN HILL,Froglets,Military,2001,01-12-2002,reading
+9780563177265,Scott-James,A Gardener's Dozen,British Broadcasting Corporation,Gardening,1980,30-07-1985,to-read
+9780340821183,John Connolly,The White Road,Hodder and Stoughton,Horror,2002,03-03-2003,read
+9780765302304,Robert Jordan,The Gathering Storm,Tor Fantasy,Thriller,2009,25-06-2011,to-read
+9780399147364,Stuart Woods,Cold Paradise,Putnam,Thriller,2001,10-07-2002,reading
+9780575065840,Terry Pratchett,Death Trilogy,Victor Gollancz,Science Fiction,1998,04-09-1999,to-read
+9780312874933,David Herter,Ceres Storm,ST MARTINS PRESS,Science Fiction,2000,02-05-2001,read
