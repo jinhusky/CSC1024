@@ -138,7 +138,7 @@ def main():
                 print(color_font("Book was successfuly added", colors.GREEN))
             
             elif int(option) == 2:
-                delete_book(database)
+                delete_book(database, year_published)
 
             elif int(option) == 4:
                 clearScreen()
@@ -194,7 +194,7 @@ def add_book(database):
         repeat = cont_verify(input(color_font("\n\nDo you wish to continue? (e.g. yes/no): ", colors.GREEN)))
 
 
-def delete_book(database):
+def delete_book(database, year_published):
     repeat = True
     
     while repeat:
@@ -231,27 +231,31 @@ def delete_book(database):
                 
             
             elif int(option) == 2:
-                searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
-            
+                found_list = searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
+                deleting_items(found_list, database)
+
             elif int(option) == 3:
-                searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
-                    
+                found_list = searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
+                deleting_items(found_list, database)    
+
             elif int(option) == 4:
-                searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
-            
+                found_list = searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
+                deleting_items(found_list, database)
+
             elif int(option) == 5:
-                searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
+                found_list = searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
+                deleting_items(found_list, database)
 
             elif int(option) == 6:
-                searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
+                found_list = searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
+                deleting_items(found_list, database)
 
             elif int(option) == 7:
-                searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
-
+                found_list = searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 8:
-                searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: "))
+                found_list = searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: ", year_published))
                 deleting_items(found_list, database)
 
             elif int(option) == 9:
@@ -494,7 +498,6 @@ def deleting_items(found_list, database):
                 for book in delete_list:
                     if book in database:
                         database.remove(book)
-
                     else:
                         break
 
