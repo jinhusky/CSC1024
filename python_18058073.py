@@ -759,7 +759,7 @@ def updating_item(found_list, database):
 
         # If the book is not found in the provided list, prompt the user for correct input                      
         except ValueError:
-            input(color_font("Invalid input only accept integers of INDEX", colors.RED))
+            input(color_font("Invalid input. Only accept integers for INDEX", colors.RED))
             continue
 
         if updating_book == None:
