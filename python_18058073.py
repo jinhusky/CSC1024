@@ -668,8 +668,6 @@ def display_books(database):
         
     print(color_font(f"="*(sum(width)+10)+"", colors.GREEN))
     
-
-
 def cont_verify(c):
      # Function to verify continuation based on user input
      while True:
@@ -682,8 +680,6 @@ def cont_verify(c):
             input(color_font("Invalid input. Please enter either \"no\" or \"yes\".", colors.RED))
             continue
     
-    
-
 def searching_item(database, key, k):
     # Function to search for items in the database based on a specific key and value
     found_book = []
@@ -747,7 +743,6 @@ def updating_item(found_list, database):
         clearScreen()
         display_books(found_list)
         
-        print(color_font(f"Press ENTER to make no changes\n", colors.YELLOW))
         try:
             index = int(input(color_font(f"Enter index of book you want to update/edit: ", colors.BLUE)))
             updating_book = None
@@ -777,7 +772,7 @@ def updating_item(found_list, database):
         date_purchased = get_date_purchased(f"\nEnter the date book was purchased (Old:{updating_book[keys[7]]}): ", year_published)
         status = get_status(f"\nEnter the status of the book (Old:{updating_book[keys[8]]}): ")
 
-         # Create a new book entry with updated information
+        # Create a new book entry with updated information
         new_book = {"INDEX": updating_book[keys[0]],"ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
                                     , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
         
