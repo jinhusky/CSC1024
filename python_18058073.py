@@ -783,7 +783,7 @@ def updating_item(found_list, database):
                                     , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
         
         # Replace the old book entry with new book entry in the main database based on the index
-        database[int(updating_book[keys[0]])] = new_book
+        database[int(updating_book[keys[0]]) - 1] = new_book
         input(color_font("Book(s) was successfuly updated", colors.GREEN))
         return
         
