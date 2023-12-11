@@ -302,21 +302,26 @@ def delete_book(database, year_published):
             if int(option) == 1:
                 # Delete by book index
                 k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
-                found_list = []
+
+                found_book = None
                 #if k matches any index of book in database append it the a found_list
                 for book in database:
                     clearScreen()
                     if k == book[keys[0]]:
-                        found_list.append(book)
+                        found_book = book
 
-                display_books(found_list)
-
+                print(found_book)
                 #if there is no matches then produce error message
-                if len(found_list) == 0:
+                if found_book == None:
                     print(color_font("Book was not found", colors.RED))
+                    pass
                 
-                #continue with deletion process
-                deleting_items(found_list, database)
+                repeat = cont_verify((color_font("\n\nDo you wish to delete this book? (e.g. yes/no): ", colors.YELLOW)))
+                for book in database:
+                    if book == found_book:
+                        database.remove(book)
+                        display_books(database) 
+                        input(color_font("Book(s) was successfuly deleted", colors.GREEN)) 
                 
             
             elif int(option) == 2:
@@ -724,7 +729,6 @@ def deleting_items(found_list, database):
                         database.remove(book)  # Remove selected books from the main database
                     else:
                         break # Exit the loop if a book is not found in the main database
-
 
                 input(color_font("Book(s) was successfuly deleted", colors.GREEN))
                 break # Exit the loop after deletion
