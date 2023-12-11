@@ -561,7 +561,7 @@ def get_ISBN(prompt):
         ISBN = input(prompt)
 
         # Check for a 13-digit ISBN which contains only digits
-        if len(ISBN) == 3 and ISBN.isdigit():
+        if len(ISBN) == 13 and ISBN.isdigit():
             return str(ISBN)
         else:
              # Prompt if the ISBN is not a valid 13-digit number
