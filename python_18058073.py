@@ -593,7 +593,7 @@ def get_alpha(prompt):
             print(color_font(f"Cannot input nothing", colors.RED))
             continue
         # Check if the input string contains only alphabets and spaces
-        elif all(char.isalpha() or char.isspace() for char in author):
+        elif all(char.isalpha() or char.isspace() for char in a):
             return str(a.title())
         else:
             print(color_font(f"Invalid input. Please enter only alphabets.", colors.RED))
@@ -627,7 +627,7 @@ def get_date_purchased(prompt, year_published):
                 continue
 
             return str(date_obj.strftime("%d-%m-%Y"))
-        
+
         except ValueError:
             print(color_font(f"Invalid input. Please enter the date in the format (dd-mm-yyyy): ", colors.RED))
 
