@@ -301,7 +301,7 @@ def delete_book(database, year_published):
             
             if int(option) == 1:
                 # Delete by book index
-                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to delete: ", database)
+                k = get_INDEX("\nEnter INDEX of book to delete: ", database)
 
                 found_book = None
                 #if k matches any index of book in database append it the a found_list
@@ -328,36 +328,36 @@ def delete_book(database, year_published):
                 
             
             elif int(option) == 2:
-                found_list = searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to delete: "))
+                found_list = searching_item(database, key = 1, k = get_ISBN("\nEnter International Standard Book Number (13-digits) to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 3:
-                found_list = searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to delete: "))
+                found_list = searching_item(database, key = 2, k = get_author("\nEnter Author of book to delete: "))
                 deleting_items(found_list, database)    
 
             elif int(option) == 4:
-                found_list = searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to delete: "))
+                found_list = searching_item(database, key = 3, k = input("\nEnter Title of book to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 5:
-                found_list = searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to delete: "))
+                found_list = searching_item(database, key = 4, k = get_alpha("\nEnter Publisher of book to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 6:
-                found_list = searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to delete: "))
+                found_list = searching_item(database, key = 5, k = get_alpha("k\nEnter Genre of book to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 7:
-                found_list = searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to delete: "))
+                found_list = searching_item(database, key = 6, k = get_year_published("\nEnter Year Published of book to delete: "))
                 deleting_items(found_list, database)
 
             elif int(option) == 8:
-                found_list = searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to delete: ", year_published))
+                found_list = searching_item(database, key = 7, k = get_date_purchased("\nEnter Date Purchased of book to delete: ", year_published))
                 deleting_items(found_list, database)
 
             elif int(option) == 9:
                 #similarly with index have to ensure that status is equivalence to input or else searching read will disply to-read and reading because read is in those str
-                s = get_status("\nPress Ctrl + d to back\nEnter Status of book to delete: ")
+                s = get_status("\nEnter Status of book to delete: ")
                 found_list = []
                 for book in database:
                     clearScreen()
@@ -379,10 +379,7 @@ def delete_book(database, year_published):
             input(color_font("Invalid input please enter intergers only", colors.RED))
             continue
 
-        #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
-        except EOFError:
-            # pass thru the loop in the middle of entering book details functions as a escape key 
-            pass
+    
 
 def search_books(database):
     repeat = True
@@ -474,7 +471,7 @@ def update_book(database, year_published):
             
             if int(option) == 1:
                 # Search and update book by INDEX
-                k = get_INDEX("\nPress Ctrl + d to back\nEnter INDEX of book to update: ", database)
+                k = get_INDEX("\nEnter INDEX of book to update: ", database)
                 found_list = []
                 for book in database:
                     clearScreen()
@@ -488,35 +485,35 @@ def update_book(database, year_published):
                 updating_item(found_list, database)
             
             elif int(option) == 2:
-                found_list = searching_item(database, key = 1, k = get_ISBN("\nPress Ctrl + d to back\nEnter International Standard Book Number (13-digits) to update: "))
+                found_list = searching_item(database, key = 1, k = get_ISBN("\nEnter International Standard Book Number (13-digits) to update: "))
                 updating_item(found_list, database)
 
             elif int(option) == 3:
-                found_list = searching_item(database, key = 2, k = get_author("\nPress Ctrl + d to back\nEnter Author of book to update: "))
+                found_list = searching_item(database, key = 2, k = get_author("\nEnter Author of book to update: "))
                 updating_item(found_list, database)
 
             elif int(option) == 4:
-                found_list = searching_item(database, key = 3, k = input("\nPress Ctrl + d to back\nEnter Title of book to update: "))
+                found_list = searching_item(database, key = 3, k = input("\nEnter Title of book to update: "))
                 updating_item(found_list, database)
 
             elif int(option) == 5:
-                found_list = searching_item(database, key = 4, k = get_alpha("\nPress Ctrl + d to back\nEnter Publisher of book to update: "))
+                found_list = searching_item(database, key = 4, k = get_alpha("\nEnter Publisher of book to update: "))
                 
 
             elif int(option) == 6:
-                found_list = searching_item(database, key = 5, k = get_alpha("\nPress Ctrl + d to back\nEnter Genre of book to update: "))
+                found_list = searching_item(database, key = 5, k = get_alpha("\nEnter Genre of book to update: "))
                 updating_item(found_list, database)
 
             elif int(option) == 7:
-                found_list = searching_item(database, key = 6, k = get_year_published("\nPress Ctrl + d to back\nEnter Year Published of book to update: "))
+                found_list = searching_item(database, key = 6, k = get_year_published("\nEnter Year Published of book to update: "))
                 updating_item(found_list, database)
 
             elif int(option) == 8:
-                found_list = searching_item(database, key = 7, k = get_date_purchased("\nPress Ctrl + d to back\nEnter Date Purchased of book to update: ", year_published))
+                found_list = searching_item(database, key = 7, k = get_date_purchased("\nEnter Date Purchased of book to update: ", year_published))
                 updating_item(found_list, database)
 
             elif int(option) == 9:
-                s = get_status("\nPress Ctrl + d to back\nEnter Status of book to update: ")
+                s = get_status("\nEnter Status of book to update: ")
                 found_list = []
                 for book in database:
                     clearScreen()
@@ -539,9 +536,6 @@ def update_book(database, year_published):
             input(color_font("Invalid input please enter interger 1 to 9", colors.RED))
             continue
 
-        #Raised when the input() function hits an end-of-file condition (EOF) without reading any data. ctrl + d triggers this error
-        except EOFError:
-            pass
             
 
 
