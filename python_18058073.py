@@ -147,19 +147,17 @@ def main():
     try:
         # Attempt to open the file containing book records (if not found raise FileNotFoundError)
         with open("books_18058073.txt") as txtfile:
-            try:
-                 # Read each line of the file, splitting the content into individual attributes of a book
-                for line in txtfile:
+            # Read each line of the file, splitting the content into individual attributes of a book
+            for line in txtfile:
+                try:
                     ISBN, author, title, publisher, genre, year_published, date_purchased, status = line.rstrip().split(",")
                     # Create a dictionary for each book and append it to the database
                     book = {"INDEX": str(index), "ISBN": ISBN, "Author": author, "Title": title, "Publisher": publisher
                                 , "Genre": genre, "Year Published": year_published, "Date Purchased": date_purchased, "Status": status}
                     database.append(book)
                     index += 1
-
-            #to avoid bug where trying to split an empty line 
-            except ValueError:
-                pass
+                except ValueError:
+                    pass
 
     except FileNotFoundError:
         # Notify the user if the file is not found or the path is incorrect
