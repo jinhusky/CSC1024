@@ -571,21 +571,30 @@ def get_author(prompt):
     # Function to get and validate the author's name
     while True:
         author = input(prompt)
-
+        #avoid user's empty input
+        if not author.strip():
+            print(color_font(f"Cannot input nothing", colors.RED))
+            continue
         # Check if the author's name contains only alphabets, spaces, and dots
-        if all(char.isalpha() or char.isspace() or char == '.' for char in author):
+        elif all(char.isalpha() or char.isspace() or char == '.' for char in author):
            
             return str(author.title())
+        
         
         else:
             print(color_font(f"Invalid input. Please enter only alpha \".\" for author's name.", colors.RED))
 
 def get_alpha(prompt):
      while True:
-        author = input(prompt)
+        a = input(prompt)
+        
+        #avoid user's empty input
+        if not a.strip():
+            print(color_font(f"Cannot input nothing", colors.RED))
+            continue
         # Check if the input string contains only alphabets and spaces
-        if all(char.isalpha() or char.isspace() for char in author):
-            return str(author.title())
+        elif all(char.isalpha() or char.isspace() for char in author):
+            return str(a.title())
         else:
             print(color_font(f"Invalid input. Please enter only alphabets.", colors.RED))
 
