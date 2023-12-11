@@ -317,11 +317,14 @@ def delete_book(database, year_published):
                     pass
                 
                 repeat = cont_verify((color_font("\n\nDo you wish to delete this book? (e.g. yes/no): ", colors.YELLOW)))
-                for book in database:
-                    if book == found_book:
-                        database.remove(book)
-                        display_books(database) 
-                        input(color_font("Book(s) was successfuly deleted", colors.GREEN)) 
+                if repeat:
+                    for book in database:
+                        if book == found_book:
+                            database.remove(book)
+                            display_books(database) 
+                            input(color_font("Book(s) was successfuly deleted", colors.GREEN)) 
+                else:
+                    input(color_font("Book(s) not deleted", colors.GREEN)) 
                 
             
             elif int(option) == 2:
